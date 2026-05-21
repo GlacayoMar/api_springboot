@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -27,7 +28,15 @@ public class Autor {
     @Column(name = "nacionalidad_autor", nullable = false, length = 50)
     private String nacionalidad;
 
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
+
     @OneToMany(mappedBy = "autor", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
     private List<Libro> libros;
+
+    @PrePersist
+    public void prePersist() {
+        fechaCreacion = LocalDateTime.now();
+    }
 }

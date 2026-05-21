@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Table(name = "libros")
 @Getter
@@ -40,6 +42,9 @@ public class Libro {
     )
     private Integer anioPublicacion;
 
+    @Column(name = "fecha_creacion")
+    private LocalDateTime fechaCreacion;
+
     @Column(name = "disponible", nullable = false)
     private Boolean disponible = true;
 
@@ -50,4 +55,9 @@ public class Libro {
     )
     @JsonBackReference
     private Autor autor;
+
+    @PrePersist
+    public void prePersist() {
+        fechaCreacion = LocalDateTime.now();
+    }
 }
