@@ -24,6 +24,7 @@ public class Libro {
             nullable = false,
             length = 150
     )
+
     private String titulo;
 
     @Column(
@@ -38,6 +39,9 @@ public class Libro {
             nullable = false
     )
     private Integer anioPublicacion;
+
+    @Column(name = "disponible", nullable = false)
+    private Boolean disponible = true;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
